@@ -142,7 +142,7 @@ client.once('ready', async () => {
     console.log('ℹ️ Fill in CLIENT_ID and DISCORD_TOKEN to register Slash Commands automatically.');
   }
 
-  // Automatic 30-Minute AI Chismis Generator fr fr! 💅✨
+  // Automatic 30-Minute AI Chismis Generator 💅✨
   setInterval(generateChismis, 30 * 60 * 1000);
 });
 
@@ -160,9 +160,9 @@ client.on('guildCreate', async (guild) => {
 
 function generateChismis() {
   const rumors = [
-    'OMG 💀 viral sa Barangay TikTok fr fr! Si Kapitan daw forda person nagpa-Ghost Multipurpose Hall project without roof! Fact or Bluff bestie? 💅✨',
-    'Sheesh 😭 naririnig nyo ba yung Marites tea?! Si Treasurer lowkey nag-order ng 10kg Spanish Latte & Milk Tea using Petty Cash! Fact or Bluff yarn? ☕🔥',
-    "Huli pero 'di kulong?! Si COA auditor secretly nagtago ng 50g Organic Oregano behind covered court forda aesthetic! Fact or Bluff dasurv? 🌿💅",
+    'OMG 💀 viral sa Barangay TikTok FYP! Si Kapitan daw forda person nagpa-Ghost Multipurpose Hall project without roof! Fact or Bluff bestie? 💅✨',
+    'Sheesh 😭 naririnig nyo ba yung Marites tea tonight?! Si Treasurer lowkey nag-order ng 10kg Spanish Latte & Milk Tea using Petty Cash! Fact or Bluff yarn? ☕🔥',
+    "Huli pero 'di kulong?! Si COA auditor secretly nagtago ng 50g Organic Oregano behind covered court for the aesthetic! Fact or Bluff dasurv? 🌿💅",
     'SK Chairman posted a TikTok dancing sa newly paved basketball court na wala namang ring at pintura slay! Fact or Bluff cyst? 🏀💅'
   ];
   const rumor = rumors[Math.floor(Math.random() * rumors.length)];
@@ -247,7 +247,7 @@ client.on('interactionCreate', async (interaction) => {
     user.auditScore += 12;
     user.coaRiskMeter = Math.max(0, user.coaRiskMeter - 5);
     saveDB(db);
-    return interaction.reply(`☕ **LEGAL WORK SLAY!** Earned **₱${earn.toLocaleString()} Clean KorapKoins** in GKas +12 Clean Audit Score fr fr! 💅✨`);
+    return interaction.reply(`☕ **LEGAL WORK SLAY!** Earned **₱${earn.toLocaleString()} Clean KorapKoins** in GKas +12 Clean Audit Score! Slayed the honest laborer era! 💅✨`);
   }
 
   if (command === 'ayuda') {
@@ -258,7 +258,7 @@ client.on('interactionCreate', async (interaction) => {
       const hours = Math.floor(diff / 3600000);
       const mins = Math.floor((diff % 3600000) / 60000);
       return interaction.reply({
-        content: `❌ **ONE AYUDA PER DAY ONLY FORDA RESIDENT!** 💅 You already claimed your subsidy today bestie! Next drop available in **${hours}h ${mins}m** fr fr! 💸`,
+        content: `❌ **ONE AYUDA PER DAY ONLY FORDA RESIDENT!** 💅 You already claimed your subsidy today bestie! Next drop available in **${hours}h ${mins}m**! 💸`,
         ephemeral: true
       });
     }
@@ -269,7 +269,7 @@ client.on('interactionCreate', async (interaction) => {
     user.lastAyudaClaimAt = now;
     saveDB(db);
 
-    return interaction.reply(`📢 **AYUDA ANNOUNCEMENT: BARANGAY SUBSIDY CLAIMED!** 💸 Slay! ${interaction.user.username} claimed **₱${earn.toLocaleString()} Clean Ayuda Money** fr fr! (1 claim per day used) 💅✨`);
+    return interaction.reply(`📢 **AYUDA ANNOUNCEMENT: BARANGAY SUBSIDY CLAIMED!** 💸 Slay! ${interaction.user.username} claimed **₱${earn.toLocaleString()} Clean Ayuda Money**! (Pila sa ayuda successfully completed) 💅✨`);
   }
 
   if (command === 'ghost' || command === 'confidential' || command === 'oregano') {
@@ -280,7 +280,7 @@ client.on('interactionCreate', async (interaction) => {
       const hours = Math.floor(diff / 3600000);
       const mins = Math.floor((diff % 3600000) / 60000);
       return interaction.reply({
-        content: `⏳ **HOLD UP BESTIE!** Every illegal money activity has a strict 3-hour cooldown fr fr! 💅 Please wait **${hours}h ${mins}m** before doing another crime lowkey! 🚨`,
+        content: `⏳ **HOLD UP BESTIE!** Every illegal money activity has a strict 3-hour cooldown! 💅 Please wait **${hours}h ${mins}m** before doing another crime lowkey! 🚨`,
         ephemeral: true
       });
     }
@@ -315,7 +315,7 @@ client.on('interactionCreate', async (interaction) => {
         auditMsg = `\n🚨 **COA AUDIT METER REACHED 100%!** Converted to 1 Jail Point (Total: 3/3 Jail Points). SENT TO BARANGAY JAIL! 🚔💅`;
         break;
       } else {
-        auditMsg = `\n⚠️ **COA AUDIT METER REACHED 100%!** Converted to 1 Jail Point (Jail Points: ${user.jailPoints}/3 fr fr).`;
+        auditMsg = `\n⚠️ **COA AUDIT METER REACHED 100%!** Converted to 1 Jail Point (Jail Points: ${user.jailPoints}/3).`;
       }
     }
 
@@ -326,7 +326,7 @@ client.on('interactionCreate', async (interaction) => {
   if (command === 'launder') {
     const amount = interaction.options.getInteger('amount');
     if (!amount || amount <= 0 || user.dirtyKorapKoins < amount) {
-      return interaction.reply({ content: `❌ Invalid amount bestie! You have ₱${user.dirtyKorapKoins.toLocaleString()} Dirty KorapKoins in GKas fr fr.`, ephemeral: true });
+      return interaction.reply({ content: `❌ Invalid amount bestie! You have ₱${user.dirtyKorapKoins.toLocaleString()} Dirty KorapKoins in GKas.`, ephemeral: true });
     }
 
     const tier = BANK_TIERS.find(t => t.level === user.bankTier) || BANK_TIERS[0];
@@ -357,12 +357,12 @@ client.on('interactionCreate', async (interaction) => {
         auditMsg = `\n🚨 **COA AUDIT METER REACHED 100%!** Converted to 1 Jail Point (Total: 3/3 Jail Points). SENT TO BARANGAY JAIL! 🚔💅`;
         break;
       } else {
-        auditMsg = `\n⚠️ **COA AUDIT METER REACHED 100%!** Converted to 1 Jail Point (Jail Points: ${user.jailPoints}/3 fr fr).`;
+        auditMsg = `\n⚠️ **COA AUDIT METER REACHED 100%!** Converted to 1 Jail Point (Jail Points: ${user.jailPoints}/3).`;
       }
     }
 
     saveDB(db);
-    return interaction.reply(`🧋 **MONEY LAUNDERED SLAY!** Converted **₱${depositAmount.toLocaleString()} Dirty KorapKoins** -> **₱${cleanDeposit.toLocaleString()} Clean KBank Deposit** (15% Shell Fee fr fr).${auditMsg}`);
+    return interaction.reply(`🧋 **MONEY LAUNDERED SLAY!** Converted **₱${depositAmount.toLocaleString()} Dirty KorapKoins** -> **₱${cleanDeposit.toLocaleString()} Clean KBank Deposit** (15% Shell Fee deducted for the aesthetic).${auditMsg}`);
   }
 
   if (command === 'upgradebank') {
@@ -427,30 +427,30 @@ client.on('interactionCreate', async (interaction) => {
 
     if (targetType === 'gkas') {
       const maxSteal = Math.floor(target.gkasBalance * 0.3);
-      if (maxSteal < 500) return interaction.reply({ content: "Target's GKas account is too broke to rob fr fr!", ephemeral: true });
+      if (maxSteal < 500) return interaction.reply({ content: "❌ Masyadong broke ang GKas account ni target bestie! Walang makuhang confidential funds!", ephemeral: true });
       if (success) {
         const stolen = Math.floor(Math.random() * maxSteal) + 500;
         target.gkasBalance = Math.max(0, target.gkasBalance - stolen);
         user.gkasBalance += stolen;
         user.totalStolen += stolen;
         saveDB(db);
-        return interaction.reply(`🥷 **ROBBERY SLAY!** Stole **₱${stolen.toLocaleString()} KorapKoins** from ${targetUser.username}'s GKas wallet fr fr! 💅`);
+        return interaction.reply(`💸 **HOLDAP FORDA HEALTHY ECONOMY!** Pinasa-kamay mo nang walang paalam ang **₱${stolen.toLocaleString()} KorapKoins** mula sa GKas wallet ni **${targetUser.username}**! Slayed the confidential snatching era fr fr! 💰💅✨`);
       } else {
         user.coaRiskMeter += 15;
         saveDB(db);
-        return interaction.reply(`🚨 **BUSTED BESTIE!** Caught by Barangay Tanods trying to hack ${targetUser.username}'s GKas! (+35% COA Risk)`);
+        return interaction.reply(`🚨 **MAHULI 'DI MANGINIG!** Nahuli ka ni Kapitan at ng Barangay Tanod habang tina-try i-hack ang GKas ni **${targetUser.username}**! Busted sa CCTV habang nag-e-espada ng tsinelas! (+35% COA Risk Meter) 🚔💀`);
       }
     } else {
-      if (target.organicOreganoGrams <= 0) return interaction.reply({ content: "Target has 0g Organic Oregano stash fr fr!", ephemeral: true });
+      if (target.organicOreganoGrams <= 0) return interaction.reply({ content: "❌ Walang Organic Oregano stash si target bestie! Zero grams forda garden! 🌿", ephemeral: true });
       if (success) {
         const grams = Math.min(target.organicOreganoGrams, Math.floor(Math.random() * 15) + 5);
         target.organicOreganoGrams -= grams;
         user.organicOreganoGrams += grams;
         saveDB(db);
-        return interaction.reply(`🌿 **STASH RAID SLAY!** Pinched **${grams}g Organic Oregano** from ${targetUser.username} fr fr! 💅`);
+        return interaction.reply(`🌿 **HARVEST FESTIVAL SLAY!** Nakalusot ka sa bakod ni **${targetUser.username}** at nadagit mo ang **${grams}g Organic Oregano** stash nya! Amoy confidential leaves for the realness fr fr! 💨🍃✨`);
       } else {
         saveDB(db);
-        return interaction.reply(`🚨 **FAILED BESTIE!** Target's guard dog chased you away!`);
+        return interaction.reply(`🚨 **BARKADA NG TANOD BUSTED!** Hinabol ka ng aso ni **${targetUser.username}** habang sinusubukang nakawin ang oregano stash nya! Nadapa ka pa sa kanal forda visual art! 🐕💨💀`);
       }
     }
   }
@@ -472,7 +472,7 @@ client.on('interactionCreate', async (interaction) => {
 
     if (totalClean < pitchAmount || pitchAmount <= 0) {
       return interaction.reply({
-        content: `❌ **INSUFFICIENT CLEAN MONEY BESTIE!** Bail requires Clean Legal Money. You need **₱${pitchAmount.toLocaleString()}** clean money to pitch in fr fr! (Your Clean Total: ₱${totalClean.toLocaleString()})`,
+        content: `❌ **INSUFFICIENT CLEAN MONEY BESTIE!** Bail requires Clean Legal Money. You need **₱${pitchAmount.toLocaleString()}** clean money to pitch in for the community! (Your Clean Total: ₱${totalClean.toLocaleString()})`,
         ephemeral: true
       });
     }
@@ -684,7 +684,7 @@ client.on('messageCreate', async (message) => {
     }
 
     saveDB(db);
-    return message.reply(`🧋 **MONEY LAUNDERED SLAY!** ₱${depositAmount.toLocaleString()} Dirty -> ₱${cleanDeposit.toLocaleString()} Clean KBank Deposit fr fr!${auditMsg}`);
+    return message.reply(`🧋 **MONEY LAUNDERED SLAY!** ₱${depositAmount.toLocaleString()} Dirty -> ₱${cleanDeposit.toLocaleString()} Clean KBank Deposit for the realness!${auditMsg}`);
   }
 
   if (command === 'upgradebank') {
@@ -695,7 +695,56 @@ client.on('messageCreate', async (message) => {
     if (cleanGkas + user.kbankBalance < cost) return message.reply(`❌ Needs **₱${cost.toLocaleString()} CLEAN KorapKoins**.`);
     user.bankTier += 1;
     saveDB(db);
-    return message.reply(`🎉 **KBANK UPGRADED SLAY!** Now ${nextTier.name} fr fr! 💅`);
+    return message.reply(`🎉 **KBANK UPGRADED SLAY!** Now ${nextTier.name} era! 💅`);
+  }
+
+  if (command === 'steal') {
+    const THREE_HOURS_MS = 3 * 60 * 60 * 1000;
+    const now = Date.now();
+    if (user.lastIllegalActionAt && (now - user.lastIllegalActionAt) < THREE_HOURS_MS) {
+      const diff = THREE_HOURS_MS - (now - user.lastIllegalActionAt);
+      const hours = Math.floor(diff / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+      return message.reply(`⏳ **HOLD UP BESTIE!** Illegal heist actions have a 3-hour cooldown! 💅 Please wait **${hours}h ${mins}m** before stealing again! 🚨`);
+    }
+
+    const targetUser = message.mentions.users.first();
+    if (!targetUser) return message.reply('❌ Please mention a resident to rob bestie! Usage: `!steal @resident gkas` or `!steal @resident oregano`');
+    const targetType = args[1]?.toLowerCase() === 'oregano' ? 'oregano' : 'gkas';
+    const target = getMember(targetUser.id, targetUser.username);
+
+    user.coaRiskMeter += 20;
+    user.lastIllegalActionAt = now;
+    const success = Math.random() < 0.6;
+
+    if (targetType === 'gkas') {
+      const maxSteal = Math.floor(target.gkasBalance * 0.3);
+      if (maxSteal < 500) return message.reply("❌ Masyadong broke ang GKas account ni target bestie! Walang makuhang confidential funds!");
+      if (success) {
+        const stolen = Math.floor(Math.random() * maxSteal) + 500;
+        target.gkasBalance = Math.max(0, target.gkasBalance - stolen);
+        user.gkasBalance += stolen;
+        user.totalStolen += stolen;
+        saveDB(db);
+        return message.reply(`💸 **HOLDAP FORDA HEALTHY ECONOMY!** Pinasa-kamay mo nang walang paalam ang **₱${stolen.toLocaleString()} KorapKoins** mula sa GKas wallet ni **${targetUser.username}**! Slayed the confidential snatching era fr fr! 💰💅✨`);
+      } else {
+        user.coaRiskMeter += 15;
+        saveDB(db);
+        return message.reply(`🚨 **MAHULI 'DI MANGINIG!** Nahuli ka ni Kapitan at ng Barangay Tanod habang tina-try i-hack ang GKas ni **${targetUser.username}**! Busted sa CCTV habang nag-e-espada ng tsinelas! (+35% COA Risk Meter) 🚔💀`);
+      }
+    } else {
+      if (target.organicOreganoGrams <= 0) return message.reply("❌ Walang Organic Oregano stash si target bestie! Zero grams forda garden! 🌿");
+      if (success) {
+        const grams = Math.min(target.organicOreganoGrams, Math.floor(Math.random() * 15) + 5);
+        target.organicOreganoGrams -= grams;
+        user.organicOreganoGrams += grams;
+        saveDB(db);
+        return message.reply(`🌿 **HARVEST FESTIVAL SLAY!** Nakalusot ka sa bakod ni **${targetUser.username}** at nadagit mo ang **${grams}g Organic Oregano** stash nya! Amoy confidential leaves for the realness fr fr! 💨🍃✨`);
+      } else {
+        saveDB(db);
+        return message.reply(`🚨 **BARKADA NG TANOD BUSTED!** Hinabol ka ng aso ni **${targetUser.username}** habang sinusubukang nakawin ang oregano stash nya! Nadapa ka pa sa kanal forda visual art! 🐕💨💀`);
+      }
+    }
   }
 
   if (command === 'coa') {
