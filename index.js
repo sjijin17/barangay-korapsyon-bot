@@ -92,8 +92,7 @@ const client = new Client({
 
 // Slash Command Definitions
 const commands = [
-  new SlashCommandBuilder().setName('profile').setDescription('View your private Barangay profile & dossier (Only visible to you)'),
-  new SlashCommandBuilder().setName('gkas').setDescription('View GKas Digital Wallet balance (Infinite Storage)'),
+  new SlashCommandBuilder().setName('profile').setDescription('View your private Barangay profile & dossier privately (Only visible to you)'),
   new SlashCommandBuilder().setName('kbank').setDescription('View KBank Vault deposit & Tier cap limits'),
   new SlashCommandBuilder().setName('kwek').setDescription('Sell Kwek-Kwek for clean KorapKoins & +Audit Score'),
   new SlashCommandBuilder().setName('spanishlatte').setDescription('Sell aesthetic Spanish Latte for clean KorapKoins (100% legal slay)'),
@@ -215,22 +214,10 @@ client.on('interactionCreate', async (interaction) => {
   }
 
   if (command === 'gkas') {
-    const cleanGkas = Math.max(0, user.gkasBalance - user.dirtyKorapKoins);
-    const isPrivate = user.gkasPrivate ?? false;
-
-    const embed = new EmbedBuilder()
-      .setTitle(`📲 GKas Wallet - ${interaction.user.username}`)
-      .setColor('#10B981')
-      .addFields(
-        { name: '💰 Total Balance', value: isPrivate ? '🔒 **₱••••••••** *(Private Mode)*' : `₱${user.gkasBalance.toLocaleString()} ₱KK`, inline: true },
-        { name: '✨ Clean KorapKoins', value: isPrivate ? '₱••••••••' : `₱${cleanGkas.toLocaleString()}`, inline: true },
-        { name: '🚨 Dirty Money', value: isPrivate ? '₱••••••••' : `₱${user.dirtyKorapKoins.toLocaleString()}`, inline: true },
-        { name: '🔒 Privacy Status', value: isPrivate ? '🔴 PRIVATE MODE ON' : '🟢 PUBLIC MODE', inline: true },
-        { name: '🌿 Oregano Stash', value: `${user.organicOreganoGrams}g`, inline: true },
-        { name: '🏛️ Capacity', value: '♾️ Infinite Storage', inline: true }
-      )
-      .setFooter({ text: 'Barangay Korapsyon Economy • Toggle via /toggleprivacy' });
-    return interaction.reply({ embeds: [embed] });
+    return interaction.reply({
+      content: '🔒 **The /gkas command has been decommissioned for privacy!** Please use /profile to view your GKas balance, clean money, dirty money, and assets privately.',
+      ephemeral: true
+    });
   }
 
   if (command === 'toggleprivacy') {
