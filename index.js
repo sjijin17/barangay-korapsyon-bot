@@ -421,7 +421,7 @@ client.on('interactionCreate', async (interaction) => {
       const hours = Math.floor(diff / 3600000);
       const mins = Math.floor((diff % 3600000) / 60000);
       return interaction.reply({
-        content: `⏳ **HOLD UP BESTIE!** Illegal heist actions have a 3-hour cooldown fr fr! 💅 Please wait **${hours}h ${mins}m** before stealing again! 🚨`,
+        content: `⏳ **MAGHUNOS DILI!** May 3-hour cooldown teh! Please wait **${hours}h ${mins}m** before stealing again! 🚨`,
         ephemeral: true
       });
     }
@@ -714,7 +714,7 @@ client.on('messageCreate', async (message) => {
       const diff = THREE_HOURS_MS - (now - user.lastIllegalActionAt);
       const hours = Math.floor(diff / 3600000);
       const mins = Math.floor((diff % 3600000) / 60000);
-      return message.reply(`⏳ **HOLD UP BESTIE!** Illegal heist actions have a 3-hour cooldown! 💅 Please wait **${hours}h ${mins}m** before stealing again! 🚨`);
+      return message.reply(`⏳ **MAGHUNOS DILI!** May 3-hour cooldown teh! Please wait **${hours}h ${mins}m** before stealing again! 🚨`);
     }
 
     const targetUser = message.mentions.users.first();
