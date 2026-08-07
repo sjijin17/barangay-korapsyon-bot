@@ -54,6 +54,7 @@ function getMember(id, username) {
       gkasBalance: 15000,
       kbankBalance: 0,
       bankTier: 1,
+      gkasPrivate: false,
       dirtyKorapKoins: 0,
       organicOreganoGrams: 0,
       auditScore: 100,
@@ -73,10 +74,10 @@ function getMember(id, username) {
 }
 
 const BANK_TIERS = [
-  { level: 1, name: 'Simpleng Tao', maxCap: 50000, upgradeCostClean: 0 },
-  { level: 2, name: 'Nakakaluwag-luwag', maxCap: 100000, upgradeCostClean: 35000 },
-  { level: 3, name: 'Contractor', maxCap: 250000, upgradeCostClean: 80000 },
-  { level: 4, name: 'Congressman', maxCap: 500000, upgradeCostClean: 200000 }
+  { level: 1, name: 'Simpleng Tao', maxCap: 50000, upgradeCostClean: 0, launderFeePercent: 15, coaRiskReduction: 0 },
+  { level: 2, name: 'Nakakaluwag-luwag', maxCap: 100000, upgradeCostClean: 35000, launderFeePercent: 12, coaRiskReduction: 10 },
+  { level: 3, name: 'Contractor', maxCap: 250000, upgradeCostClean: 80000, launderFeePercent: 8, coaRiskReduction: 20 },
+  { level: 4, name: 'Congressman', maxCap: 500000, upgradeCostClean: 200000, launderFeePercent: 5, coaRiskReduction: 35 }
 ];
 
 // Initialize Discord Client
@@ -195,16 +196,18 @@ client.on('interactionCreate', async (interaction) => {
 
   if (command === 'profile') {
     const tier = BANK_TIERS.find(t => t.level === user.bankTier) || BANK_TIERS[0];
+    const isPrivate = user.gkasPrivate ?? false;
 
     const embed = new EmbedBuilder()
       .setTitle(`👤 RESIDENT DOSSIER - ${interaction.user.username}`)
       .setColor('#8B5CF6')
-      .setDescription('🔒 *Private Resident Overview (Visible only to you)*')
+      .setDescription('🔒 *Private Resident Overview*')
       .addFields(
-        { name: '📲 Total GKas Amount', value: `**₱${user.gkasBalance.toLocaleString()}** *(Infinite Storage)*`, inline: true },
+        { name: '📲 GKas Wallet Status', value: isPrivate ? '🔒 **₱••••••••** *(Private Mode Active)*' : `**₱${user.gkasBalance.toLocaleString()}** *(Infinite Storage)*`, inline: true },
+        { name: '🏛️ KBank Tier Perks', value: `**Tier ${tier.level}: ${tier.name}**\nMax: ₱${tier.maxCap.toLocaleString()} | Fee: **${tier.launderFeePercent}%** | Risk: **-${tier.coaRiskReduction}%**`, inline: true },
         { name: '🌿 Organic Oregano', value: `**${user.organicOreganoGrams}g** Stash`, inline: true },
         { name: '🕵️ COA Risk & Score', value: `Risk: **${user.coaRiskMeter}%** | Clean Score: **${user.auditScore} pts**`, inline: true },
-        { name: '🏛️ KBank Deposit Storage', value: `**₱${user.kbankBalance.toLocaleString()}** / ₱${tier.maxCap.toLocaleString()}\n*(${tier.name})*`, inline: true }
+        { name: '🏛️ KBank Deposit Storage', value: `**₱${user.kbankBalance.toLocaleString()}** / ₱${tier.maxCap.toLocaleString()}`, inline: true }
       )
       .setFooter({ text: 'Barangay Korapsyon Economy • Confidential Profile' });
 
@@ -213,29 +216,43 @@ client.on('interactionCreate', async (interaction) => {
 
   if (command === 'gkas') {
     const cleanGkas = Math.max(0, user.gkasBalance - user.dirtyKorapKoins);
+    const isPrivate = user.gkasPrivate ?? false;
+
     const embed = new EmbedBuilder()
       .setTitle(`📲 GKas Wallet - ${interaction.user.username}`)
       .setColor('#10B981')
       .addFields(
-        { name: '💰 Total Balance', value: `₱${user.gkasBalance.toLocaleString()} ₱KK`, inline: true },
-        { name: '✨ Clean KorapKoins', value: `₱${cleanGkas.toLocaleString()}`, inline: true },
-        { name: '🚨 Dirty Money', value: `₱${user.dirtyKorapKoins.toLocaleString()}`, inline: true },
+        { name: '💰 Total Balance', value: isPrivate ? '🔒 **₱••••••••** *(Private Mode)*' : `₱${user.gkasBalance.toLocaleString()} ₱KK`, inline: true },
+        { name: '✨ Clean KorapKoins', value: isPrivate ? '₱••••••••' : `₱${cleanGkas.toLocaleString()}`, inline: true },
+        { name: '🚨 Dirty Money', value: isPrivate ? '₱••••••••' : `₱${user.dirtyKorapKoins.toLocaleString()}`, inline: true },
+        { name: '🔒 Privacy Status', value: isPrivate ? '🔴 PRIVATE MODE ON' : '🟢 PUBLIC MODE', inline: true },
         { name: '🌿 Oregano Stash', value: `${user.organicOreganoGrams}g`, inline: true },
         { name: '🏛️ Capacity', value: '♾️ Infinite Storage', inline: true }
       )
-      .setFooter({ text: 'Barangay Korapsyon Economy' });
+      .setFooter({ text: 'Barangay Korapsyon Economy • Toggle via /toggleprivacy' });
     return interaction.reply({ embeds: [embed] });
+  }
+
+  if (command === 'toggleprivacy') {
+    user.gkasPrivate = !user.gkasPrivate;
+    saveDB(db);
+    return interaction.reply({
+      content: user.gkasPrivate
+        ? '🔒 **GKas Balance set to PRIVATE!** Your wallet balances are now hidden in public commands.'
+        : '🔓 **GKas Balance set to PUBLIC!** Your wallet balances are now publicly visible.',
+      ephemeral: true
+    });
   }
 
   if (command === 'kbank') {
     const tier = BANK_TIERS.find(t => t.level === user.bankTier) || BANK_TIERS[0];
     const embed = new EmbedBuilder()
-      .setTitle(`🏛️ KBank Vault - ${tier.name}`)
+      .setTitle(`🏛️ KBank Vault - Tier ${tier.level}: ${tier.name}`)
       .setColor('#3B82F6')
       .addFields(
-        { name: '🔒 Current Deposit', value: `₱${user.kbankBalance.toLocaleString()} ₱KK`, inline: true },
-        { name: '📦 Max Limit', value: `₱${tier.maxCap.toLocaleString()}`, inline: true },
-        { name: '📈 Current Tier', value: `Level ${user.bankTier} / 4`, inline: true }
+        { name: '🔒 Current Deposit', value: `₱${user.kbankBalance.toLocaleString()} / ₱${tier.maxCap.toLocaleString()}`, inline: true },
+        { name: '✨ Tier Perks Applied', value: `• **${tier.launderFeePercent}%** Shell Fee\n• **-${tier.coaRiskReduction}%** COA Risk Reduction`, inline: true },
+        { name: '📈 Active Tier Level', value: `Level ${user.bankTier} of 4 (${tier.name})`, inline: true }
       )
       .setFooter({ text: 'Upgrade using clean legal money (/upgradebank)' });
     return interaction.reply({ embeds: [embed] });
@@ -338,14 +355,19 @@ client.on('interactionCreate', async (interaction) => {
     }
 
     const depositAmount = Math.min(amount, space);
-    const fee = Math.floor(depositAmount * 0.15);
+    const feePercent = tier.launderFeePercent || 15;
+    const fee = Math.floor(depositAmount * (feePercent / 100));
     const cleanDeposit = depositAmount - fee;
 
     user.dirtyKorapKoins -= depositAmount;
     user.gkasBalance -= fee;
     user.kbankBalance += cleanDeposit;
     user.totalLaundered += depositAmount;
-    user.coaRiskMeter += 20;
+
+    const baseRisk = 20;
+    const riskDiscount = tier.coaRiskReduction || 0;
+    const riskAdd = Math.max(5, baseRisk - riskDiscount);
+    user.coaRiskMeter += riskAdd;
 
     let auditMsg = '';
     while (user.coaRiskMeter >= 100) {
