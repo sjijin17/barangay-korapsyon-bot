@@ -162,7 +162,7 @@ function generateChismis() {
   const rumors = [
     'OMG 💀 viral sa Barangay TikTok fr fr! Si Kapitan daw forda person nagpa-Ghost Multipurpose Hall project without roof! Fact or Bluff bestie? 💅✨',
     'Sheesh 😭 naririnig nyo ba yung Marites tea?! Si Treasurer lowkey nag-order ng 10kg Spanish Latte & Milk Tea using Petty Cash! Fact or Bluff yarn? ☕🔥',
-    'Huli pero 'di kulong?! Si COA auditor secretly nagtago ng 50g Organic Oregano behind covered court forda aesthetic! Fact or Bluff dasurv? 🌿💅',
+    "Huli pero 'di kulong?! Si COA auditor secretly nagtago ng 50g Organic Oregano behind covered court forda aesthetic! Fact or Bluff dasurv? 🌿💅",
     'SK Chairman posted a TikTok dancing sa newly paved basketball court na wala namang ring at pintura slay! Fact or Bluff cyst? 🏀💅'
   ];
   const rumor = rumors[Math.floor(Math.random() * rumors.length)];
