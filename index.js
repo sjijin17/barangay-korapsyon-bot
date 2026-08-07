@@ -202,11 +202,12 @@ client.on('interactionCreate', async (interaction) => {
       .setColor('#8B5CF6')
       .setDescription('🔒 *Private Resident Overview*')
       .addFields(
-        { name: '📲 GKas Wallet Status', value: isPrivate ? '🔒 **₱••••••••** *(Private Mode Active)*' : `**₱${user.gkasBalance.toLocaleString()}** *(Infinite Storage)*`, inline: true },
-        { name: '🏛️ KBank Tier Perks', value: `**Tier ${tier.level}: ${tier.name}**\nMax: ₱${tier.maxCap.toLocaleString()} | Fee: **${tier.launderFeePercent}%** | Risk: **-${tier.coaRiskReduction}%**`, inline: true },
+        { name: '📲 GKas Wallet', value: isPrivate ? '🔒 **₱••••••••**\n*(Private Mode)*' : `**₱${user.gkasBalance.toLocaleString()}**\n*(Infinite Storage)*`, inline: true },
+        { name: '🏛️ KBank Vault', value: `**₱${user.kbankBalance.toLocaleString()}** / ₱${tier.maxCap.toLocaleString()}\n*(Tier ${tier.level}: ${tier.name})*`, inline: true },
+        { name: '🚨 Dirty Money', value: isPrivate ? '🔒 **₱••••••••**' : `**₱${user.dirtyKorapKoins.toLocaleString()}**`, inline: true },
+        { name: '✨ KBank Tier Perks', value: `Fee: **${tier.launderFeePercent}%**\nRisk: **-${tier.coaRiskReduction}%**`, inline: true },
         { name: '🌿 Organic Oregano', value: `**${user.organicOreganoGrams}g** Stash`, inline: true },
-        { name: '🕵️ COA Risk & Score', value: `Risk: **${user.coaRiskMeter}%** | Clean Score: **${user.auditScore} pts**`, inline: true },
-        { name: '🏛️ KBank Deposit Storage', value: `**₱${user.kbankBalance.toLocaleString()}** / ₱${tier.maxCap.toLocaleString()}`, inline: true }
+        { name: '🕵️ COA Risk Meter', value: `Risk: **${user.coaRiskMeter}% / 100%**`, inline: true }
       )
       .setFooter({ text: 'Barangay Korapsyon Economy • Confidential Profile' });
 
@@ -407,7 +408,6 @@ client.on('interactionCreate', async (interaction) => {
       .addFields(
         { name: '🔥 COA Risk Meter', value: `${user.coaRiskMeter}% / 100%`, inline: true },
         { name: '🚔 Jail Points', value: `${user.jailPoints} / 3`, inline: true },
-        { name: '📜 Clean Audit Score', value: `${user.auditScore} Points`, inline: true },
         { name: '⚖️ Jail Status', value: user.isInJail ? '🔴 IN JAIL' : '🟢 FREE CITIZEN', inline: true }
       );
     return interaction.reply({ embeds: [embed] });
