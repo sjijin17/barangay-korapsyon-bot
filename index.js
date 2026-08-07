@@ -375,35 +375,23 @@ client.on('interactionCreate', async (interaction) => {
     const embed = new EmbedBuilder()
       .setTitle('📜 BARANGAY KORAPSYON COMMAND DIRECTORY')
       .setColor('#F59E0B')
-      .setDescription('Use either Slash Commands (`/command`) or Prefix Commands (`!command`):
-
-' +
-        '• `/gkas` or `!gkas` - View GKas Digital Wallet
-' +
-        '• `/kbank` or `!kbank` - Check KBank Storage Vault & Tier
-' +
-        '• `/kwek` or `!kwek` - Sell Kwek-Kwek (+Clean ₱KK, +Audit Score)
-' +
-        '• `/ayuda` or `!ayuda` - Claim Ayuda Cash Aid
-' +
-        '• `/ghost` or `!ghost` - Ghost Project (+Dirty ₱KK, +25% COA)
-' +
-        '• `/confidential` or `!confidential` - Pocket Confidential Funds (+Dirty ₱KK, +35% COA)
-' +
-        '• `/oregano` or `!oregano` - Harvest Organic Oregano (+15g, +15% COA)
-' +
-        '• `/launder amount:50000` - Launder dirty money into KBank
-' +
-        '• `/upgradebank` - Upgrade KBank Tier with clean money
-' +
-        '• `/coa` - Inspect Audit Risk Meter & Jail Status
-' +
-        '• `/steal target:@user item:gkas` - Rob another resident
-' +
-        '• `/bail` - Post bail with 50 Audit points
-' +
+      .setDescription([
+        'Use either Slash Commands (`/command`) or Prefix Commands (`!command`):',
+        '',
+        '• `/gkas` or `!gkas` - View GKas Digital Wallet',
+        '• `/kbank` or `!kbank` - Check KBank Storage Vault & Tier',
+        '• `/kwek` or `!kwek` - Sell Kwek-Kwek (+Clean ₱KK, +Audit Score)',
+        '• `/ayuda` or `!ayuda` - Claim Ayuda Cash Aid',
+        '• `/ghost` or `!ghost` - Ghost Project (+Dirty ₱KK, +25% COA)',
+        '• `/confidential` or `!confidential` - Pocket Confidential Funds (+Dirty ₱KK, +35% COA)',
+        '• `/oregano` or `!oregano` - Harvest Organic Oregano (+15g, +15% COA)',
+        '• `/launder amount:50000` - Launder dirty money into KBank',
+        '• `/upgradebank` - Upgrade KBank Tier with clean money',
+        '• `/coa` - Inspect Audit Risk Meter & Jail Status',
+        '• `/steal target:@user item:gkas` - Rob another resident',
+        '• `/bail` - Post bail with 50 Audit points',
         '• `/chismis` - Read latest Barangay rumors'
-      );
+      ].join('\n'));
     return interaction.reply({ embeds: [embed] });
   }
 });
