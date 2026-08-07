@@ -447,7 +447,7 @@ client.on('interactionCreate', async (interaction) => {
       } else {
         user.coaRiskMeter += 15;
         saveDB(db);
-        return interaction.reply(`🚨 **MAHULI 'DI MANGINIG!** Nahuli ka ni Kapitan at ng Barangay Tanod habang tina-try i-hack ang GKas ni **${targetUser.username}**! Busted sa CCTV habang nag-e-espada ng tsinelas! (+35% COA Risk Meter) 🚔💀`);
+        return interaction.reply(`🚨 **ENGK ENGK ENGOT!** Nahuli ka ni Kapitan at ng Barangay Tanod habang tina-try i-hack ang GKas ni **${targetUser.username}**! Busted sa CCTV habang nag-e-espada ng tsinelas! (+35% COA Risk Meter) 🚔💀`);
       }
     } else {
       if (target.organicOreganoGrams <= 0) return interaction.reply({ content: "❌ Walang Organic Oregano stash si target bestie! Zero grams forda garden! 🌿", ephemeral: true });
@@ -739,7 +739,7 @@ client.on('messageCreate', async (message) => {
       } else {
         user.coaRiskMeter += 15;
         saveDB(db);
-        return message.reply(`🚨 **MAHULI 'DI MANGINIG!** Nahuli ka ni Kapitan at ng Barangay Tanod habang tina-try i-hack ang GKas ni **${targetUser.username}**! Busted sa CCTV habang nag-e-espada ng tsinelas! (+35% COA Risk Meter) 🚔💀`);
+        return message.reply(`🚨 **ENGK ENGK ENGOT!** Nahuli ka ni Kapitan at ng Barangay Tanod habang tina-try i-hack ang GKas ni **${targetUser.username}**! Busted sa CCTV habang nag-e-espada ng tsinelas! (+35% COA Risk Meter) 🚔💀`);
       }
     } else {
       if (target.organicOreganoGrams <= 0) return message.reply("❌ Walang Organic Oregano stash si target bestie! Zero grams forda garden! 🌿");
