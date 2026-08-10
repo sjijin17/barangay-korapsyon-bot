@@ -388,8 +388,8 @@ client.on('interactionCreate', async (interaction) => {
       )
       .setFooter({ text: 'Barangay Korapsyon Economy • Anonymous Transaction Alert' });
 
-    if (interaction.channel && typeof (interaction.channel as any).send === 'function') {
-      (interaction.channel as any).send({ embeds: [publicEmbed] });
+    if (interaction.channel && typeof interaction.channel.send === 'function') {
+      interaction.channel.send({ embeds: [publicEmbed] });
     }
 
     return interaction.reply({
