@@ -100,7 +100,7 @@ const commands = [
   new SlashCommandBuilder().setName('ghost').setDescription('Ghost Multipurpose Hall scam (+Dirty ₱KK, +25% COA, 3-hr cooldown)'),
   new SlashCommandBuilder().setName('confidential').setDescription('Pocket Confidential Funds (+Dirty ₱KK, +35% COA, 3-hr cooldown)'),
   new SlashCommandBuilder().setName('oregano').setDescription('Harvest Organic Oregano stash (+15g, +15% COA, 3-hr cooldown)'),
-  new SlashCommandBuilder().setName('launder').setDescription('Launder dirty ₱KK into KBank deposit (15% Shell fee)')
+  new SlashCommandBuilder().setName('launder').setDescription('Launder dirty ₱KK into KBank deposit (15% Labandera fee)')
     .addIntegerOption(opt => opt.setName('amount').setDescription('Amount of dirty ₱KK to launder').setRequired(true)),
   new SlashCommandBuilder().setName('upgradebank').setDescription('Upgrade KBank Storage Tier using Clean Money'),
   new SlashCommandBuilder().setName('coa').setDescription('Check COA Audit Risk Meter, Jail Points & Status'),
@@ -239,7 +239,7 @@ client.on('interactionCreate', async (interaction) => {
       .setColor('#3B82F6')
       .addFields(
         { name: '🔒 Current Deposit', value: `₱${user.kbankBalance.toLocaleString()} / ₱${tier.maxCap.toLocaleString()}`, inline: true },
-        { name: '✨ Tier Perks Applied', value: `• **${tier.launderFeePercent}%** Shell Fee\n• **-${tier.coaRiskReduction}%** COA Risk Reduction`, inline: true },
+        { name: '✨ Tier Perks Applied', value: `• **${tier.launderFeePercent}%** Labandera Fee\n• **-${tier.coaRiskReduction}%** COA Risk Reduction`, inline: true },
         { name: '📈 Active Tier Level', value: `Level ${user.bankTier} of 4 (${tier.name})`, inline: true }
       )
       .setFooter({ text: 'Upgrade using clean legal money (/upgradebank)' });
@@ -278,14 +278,14 @@ client.on('interactionCreate', async (interaction) => {
   }
 
   if (command === 'ghost' || command === 'confidential' || command === 'oregano') {
-    const THREE_HOURS_MS = 3 * 60 * 60 * 1000;
+    const TWO_MINS_MS = 2 * 60 * 1000;
     const now = Date.now();
-    if (user.lastIllegalActionAt && (now - user.lastIllegalActionAt) < THREE_HOURS_MS) {
-      const diff = THREE_HOURS_MS - (now - user.lastIllegalActionAt);
-      const hours = Math.floor(diff / 3600000);
-      const mins = Math.floor((diff % 3600000) / 60000);
+    if (user.lastIllegalActionAt && (now - user.lastIllegalActionAt) < TWO_MINS_MS) {
+      const diff = TWO_MINS_MS - (now - user.lastIllegalActionAt);
+      const mins = Math.floor(diff / 60000);
+      const secs = Math.floor((diff % 60000) / 1000);
       return interaction.reply({
-        content: `⏳ **HOLD UP BESTIE!** Every illegal money activity has a strict 3-hour cooldown! 💅 Please wait **${hours}h ${mins}m** before doing another crime lowkey! 🚨`,
+        content: `⏳ **HOLD UP BESTIE!** Every illegal money activity has a strict 2-minute cooldown! 💅 Please wait **${mins}m ${secs}s** before doing another crime lowkey! 🚨`,
         ephemeral: true
       });
     }
@@ -382,7 +382,7 @@ client.on('interactionCreate', async (interaction) => {
         { name: '👤 Identity', value: '🕵️ **Confidential Resident** *(Identity Protected)*', inline: true },
         { name: '💰 Amount Laundered', value: `**₱${depositAmount.toLocaleString()}** Dirty Money`, inline: true },
         { name: '🏛️ Destination', value: `KBank Vault (**+₱${cleanDeposit.toLocaleString()}**)`, inline: true },
-        { name: '💸 Shell Fee Paid', value: `**₱${fee.toLocaleString()}** (${feePercent}%)`, inline: true },
+        { name: '💸 Labandera Fee Paid', value: `**₱${fee.toLocaleString()}** (${feePercent}%)`, inline: true },
         { name: '🔥 COA Risk Spike', value: `**+${riskAdd}%** Risk added to suspect`, inline: true },
         { name: '📡 Chismis Status', value: 'Leaked to Barangay Chismis Network!', inline: true }
       )
@@ -393,7 +393,7 @@ client.on('interactionCreate', async (interaction) => {
     }
 
     return interaction.reply({
-      content: `🧋 **MONEY LAUNDERED SLAY!** Converted **₱${depositAmount.toLocaleString()} Dirty KorapKoins** -> **₱${cleanDeposit.toLocaleString()} Clean KBank Deposit** (${feePercent}% Shell Fee deducted for the aesthetic).${auditMsg}`,
+      content: `🧋 **MONEY LAUNDERED SLAY!** Converted **₱${depositAmount.toLocaleString()} Dirty KorapKoins** -> **₱${cleanDeposit.toLocaleString()} Clean KBank Deposit** (${feePercent}% Labandera Fee deducted for the aesthetic).${auditMsg}`,
       ephemeral: true
     });
   }
