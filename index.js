@@ -324,8 +324,9 @@ client.on('interactionCreate', async (interaction) => {
       }
     }
 
+    const actName = command === 'ghost' ? 'Ghost Multipurpose Hall Project scam' : command === 'confidential' ? 'Pocket Confidential Funds scam' : 'Harvest Organic Oregano stash';
     saveDB(db);
-    return interaction.reply(`⚠️ **ILLEGAL CORRUPTION EXECUTED!** Pocketed **₱${earn.toLocaleString()} DIRTY KorapKoins**! Audit Meter is now **${user.coaRiskMeter}%**.${auditMsg}`);
+    return interaction.reply(`⚠️ **ILLEGAL CORRUPTION EXECUTED!** **${interaction.user.username}** committed **${actName}**! Pocketed **₱[CONFIDENTIAL]** (Undisclosed Amount of DIRTY KorapKoins)! Audit Meter is now **${user.coaRiskMeter}%**.${auditMsg}`);
   }
 
   if (command === 'launder') {
@@ -376,17 +377,17 @@ client.on('interactionCreate', async (interaction) => {
     saveDB(db);
 
     const publicEmbed = new EmbedBuilder()
-      .setTitle('🕵️ ANONYMOUS MONEY LAUNDERING DETECTED!')
+      .setTitle('🕵️ MONEY LAUNDERING ALERT DETECTED!')
       .setColor('#10B981')
       .addFields(
-        { name: '👤 Identity', value: '🕵️ **Confidential Resident** *(Identity Protected)*', inline: true },
-        { name: '💰 Amount Laundered', value: `**₱${depositAmount.toLocaleString()}** Dirty Money`, inline: true },
-        { name: '🏛️ Destination', value: `KBank Vault (**+₱${cleanDeposit.toLocaleString()}**)`, inline: true },
-        { name: '💸 Labandera Fee Paid', value: `**₱${fee.toLocaleString()}** (${feePercent}%)`, inline: true },
-        { name: '🔥 COA Risk Spike', value: `**+${riskAdd}%** Risk added to suspect`, inline: true },
-        { name: '📡 Chismis Status', value: 'Leaked to Barangay Chismis Network!', inline: true }
+        { name: '👤 Suspect Member', value: `<@${interaction.user.id}> (${interaction.user.username})`, inline: true },
+        { name: '🧼 Illegal Activity', value: 'Money Laundering (Labandera Service)', inline: true },
+        { name: '💰 Amount Laundered', value: '**₱[CONFIDENTIAL]** *(Undisclosed Amount)*', inline: true },
+        { name: '💸 Labandera Fee Paid', value: `**[CONFIDENTIAL]** (${feePercent}%)`, inline: true },
+        { name: '🏛️ Destination', value: 'KBank Vault', inline: true },
+        { name: '🔥 COA Risk Spike', value: `**+${riskAdd}%** Risk added to suspect`, inline: true }
       )
-      .setFooter({ text: 'Barangay Korapsyon Economy • Anonymous Transaction Alert' });
+      .setFooter({ text: 'Barangay Korapsyon Economy • Illegal Activity Public Announcement' });
 
     if (interaction.channel && typeof interaction.channel.send === 'function') {
       interaction.channel.send({ embeds: [publicEmbed] });
@@ -466,7 +467,7 @@ client.on('interactionCreate', async (interaction) => {
         user.gkasBalance += stolen;
         user.totalStolen += stolen;
         saveDB(db);
-        return interaction.reply(`💸 **HOLDAP FORDA HEALTHY ECONOMY!** Pinasa-kamay mo nang walang paalam ang **₱${stolen.toLocaleString()} KorapKoins** mula sa GKas wallet ni **${targetUser.username}**! Slayed the confidential snatching era fr fr! 💰💅✨`);
+        return interaction.reply(`💸 **HOLDAP FORDA HEALTHY ECONOMY!** **${interaction.user.username}** stole from **${targetUser.username}** via **GKas Robbery**! Amount stolen: **₱[CONFIDENTIAL]** (Undisclosed Amount of KorapKoins)! Slayed the confidential snatching era fr fr! 💰💅✨`);
       } else {
         user.coaRiskMeter += 15;
         saveDB(db);
@@ -479,7 +480,7 @@ client.on('interactionCreate', async (interaction) => {
         target.organicOreganoGrams -= grams;
         user.organicOreganoGrams += grams;
         saveDB(db);
-        return interaction.reply(`🌿 **HARVEST FESTIVAL SLAY!** Nakalusot ka sa bakod ni **${targetUser.username}** at nadagit mo ang **${grams}g Organic Oregano** stash nya! Amoy confidential leaves for the realness fr fr! 💨🍃✨`);
+        return interaction.reply(`🌿 **HARVEST FESTIVAL SLAY!** **${interaction.user.username}** stole from **${targetUser.username}** via **Oregano Garden Theft**! Stash stolen: **[CONFIDENTIAL] grams** of Organic Oregano! Amoy confidential leaves for the realness fr fr! 💨🍃✨`);
       } else {
         saveDB(db);
         return interaction.reply(`🚨 **BARKADA NG TANOD BUSTED!** Hinabol ka ng aso ni **${targetUser.username}** habang sinusubukang nakawin ang oregano stash nya! Nadapa ka pa sa kanal forda visual art! 🐕💨💀`);
